@@ -1,0 +1,39 @@
+body {
+  min-height: 100vh;
+  background-color: #252422;
+  font-family: 'Roboto', 'Helvetica', Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Dosis', 'Helvetica', Arial, sans-serif;
+  font-weight: 600;
+}
+
+.bg-gradient {
+  background: linear-gradient(to bottom right, #9311ff, #c177ff);
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+li.d-flex > i.fa.fa-check-circle {
+  padding-top: 3px;
+}
+
+.preview-image-small,
+.app-store-badge {
+  width: 100%;
+  max-width: 250px;
+}
+
+@media (max-width: 768px) {
+  ul {
+    font-size: 1.1em;
+  }
+}

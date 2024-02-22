@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TongueCare - Analyze your tongue</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: url('/assets/9473.jpg'); /* Replace with your image path */
+            background-size: cover; /* Adjust to cover the entire body */
+            background-position: center; /* Adjust to position the image */
+            background-color: #f8f8f8;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 80%;
+        }
+
+        #webcam-container {
+            margin-top: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        #label-container {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        @media only screen and (max-width: 600px) {
+            #container {
+                padding: 20px;
+            }
+
+            button {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+        }
+        /* Your existing styles */
+        #loader {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+
+        #loader img {
+            width: 50px; /* Adjust the size as needed */
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="loader">
+            <img src="/assets/Winter.gif" alt="Loader">
+        </div>
+        <h1 style="font-size: 24px; margin-bottom: 20px;">TongueCare - Analyze your tongue</h1>
+        <input type="file" accept="image/*" capture="camera" id="uploadBtn" style="display: none;" onchange="handleImageUpload(event)" disabled>
+        <button type="button" onclick="document.getElementById('uploadBtn').click()" id="openCameraBtn" disabled>Open Camera</button>
+        <div id="label-container"></div>
+        <div id="error-message" style="color: red;"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<!-- ... (your HTML code above) ... -->
+
+<script type="text/javascript">
+    const URL = "/tm-my-image-model/";
+    let model, labelContainer, maxPredictions;
+
+    // Map your predicted classes to certain text
+    const classTextMapping = {
+        'class1': 'Text for class 1',
+        'class2': 'Text for class 2',
+        // Add more mappings as needed
+    };
+
+    const classAdditionalTextMapping = {
+        'class1': 'Additional Text for class 1',
+        'class2': 'Additional Text for class 2',
+        // Add more mappings as needed
+    };
+
+    async function init() {
+        try {
+            showLoader();
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
+
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
+
+            hideLoader();
+            labelContainer = document.getElementById("label-container");
+            for (let i = 0; i < maxPredictions; i++) {
+                labelContainer.appendChild(document.createElement("div"));
+            }
+
+            // Enable the image upload and camera button after the model is loaded
+            document.getElementById("uploadBtn").disabled = false;
+            document.getElementById("openCameraBtn").disabled = false;
+        } catch (error) {
+            hideLoader();
+            document.getElementById("error-message").innerText = "Error: " + error.message;
+            console.error(error);
+        }
+    }
+
+    function showLoader() {
+        document.getElementById("loader").style.display = "block";
+    }
+
+    function hideLoader() {
+        document.getElementById("loader").style.display = "none";
+    }
+
+    function handleImageUpload(event) {
+        const input = event.target;
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = async function (e) {
+                const image = new Image();
+                image.src = e.target.result;
+                image.onload = async function () {
+                    await predictFromImage(image);
+                };
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    async function predictFromImage(image) {
+        try {
+            showLoader();
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = 200; // Set the width and height as per your model requirements
+            canvas.height = 200;
+            context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+            const prediction = await model.predict(canvas);
+
+            // Find the class with the highest probability
+            let maxProbability = 0;
+            let predictedClass = '';
+
+            for (let i = 0; i < maxPredictions; i++) {
+                const probability = prediction[i].probability.toFixed(2);
+                if (probability > maxProbability) {
+                    maxProbability = probability;
+                    predictedClass = prediction[i].className;
+                }
+            }
+
+            // Look up the text for the predicted class
+            const predictedText = classTextMapping[predictedClass] || 'Unknown Text';
+
+            // Display the result
+            labelContainer.childNodes[0].innerHTML = `Predicted Result: ${predictedText} (Probability: ${maxProbability})`;
+
+            // Check if there's additional text for the predicted class
+            const additionalText = classAdditionalTextMapping[predictedClass] || '';
+            if (additionalText) {
+                // Create an element to display the additional text
+                const additionalTextElement = document.createElement("div");
+                additionalTextElement.innerHTML = `Additional Text: ${additionalText}`;
+                
+                // Append the additional text element below the label container
+                document.getElementById("container").appendChild(additionalTextElement);
+            }
+
+            hideLoader();
+        } catch (error) {
+            hideLoader();
+            document.getElementById("error-message").innerText = "Error: " + error.message;
+            console.error(error);
+        }
+    }
+
+    // Call init when the page loads
+    window.onload = init;
+</script>
+
+<!-- ... (your HTML code below) ... -->
+
+</body>
+</html>
