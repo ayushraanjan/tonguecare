@@ -58,9 +58,12 @@ bash
 3. Capture an image of your tongue.
 4. The model will process the image locally and display the predicted health status.
 
-## **Contributing**
+## **Authors**
 
-If you would like to contribute to the project, feel free to submit a pull request or open an issue.
+ - [Prakriti](https://github.com/Nature110625)
+ - [Anshu Malini](https://github.com/anshumalinii)
+ - [Sivam Kumar](https://github.com/codysivam)
+ - [Ayush Ranjan](https://github.com/ayushraanjan)
 
 ## **License**
 
