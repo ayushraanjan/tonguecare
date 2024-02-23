@@ -60,6 +60,9 @@ bash
 ## Test Dataset
 Model has been tested on this dataset producing 82% accurate result
 ![Model has been tested on this dataset producing 82% accurate result](https://github.com/ayushraanjan/tonguecare/blob/8846c196a0c03ce88b91281efd89ffa678316d33/Screenshot%20from%202024-02-23%2012-14-05.png)
+
+    Sensitive Image Alert: The upcoming content contains images of the tongue that may be distressing for some individuals.
+
  - [Healthy Test Samples](https://drive.google.com/drive/folders/122FqAQG8BNkEcaCB-IdZxFiTAroG5JoV?usp=drive_link)
  - [Unhealthy Test Image Samples](https://drive.google.com/drive/folders/17JsPipGk8XeRR-2_ZiUFj3i2Zpt8cf74?usp=sharing)
 
