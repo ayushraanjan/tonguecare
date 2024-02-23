@@ -31,13 +31,22 @@ This project utilizes machine learning to predict tongue health based on images 
 4. Wait for the model to process the image and display the predicted health status.
 
 ### **Local Development**
+.
+|-- public/
+|   |-- index.html        # Main HTML file
+|   |-- assets/
+|       |-- images/       # Image assets
+|       |-- styles/       # CSS stylesheets
+|-- tensorflow_model/     # TensorFlow model files
+|-- README.md             # Project README
+
 
 If you wish to run the project locally:
 
 1. Clone this GitHub repository:  
     bash
 
-        git clone <https://github.com/ayushraanjan/tongue-health-predictor.git>
+        git clone <https://github.com/ayushraanjan/tonguecare.git>
 
 Navigate to the project directory:  
 bash
