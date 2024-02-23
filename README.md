@@ -3,7 +3,7 @@
 Our innovative **TensorFlow**- powered project **diagnoses tongue diseases** through a single smartphone picture, providing quick and accessible healthcare insights. Using machine learning, our model ensures early detection, contributing to proactive health management. Seeking investment to optimize the model, expand the dataset, and deploy a user-friendly solution. With market potential driven by smartphone ubiquity, we aim to revolutionize healthcare diagnostics. Join us in making early healthcare intervention a reality.
 
 ![TongueCare](https://github.com/ayushraanjan/tonguecare/blob/c528e0183eb6e2b81e35aa4e6424cddd3545b8dd/Tongue%20Care.png)
-![TongueCare Landing Page](https://github.com/ayushraanjan/tonguecare/blob/515351ae2e03e118aecd31d887a37ae0c5c9d046/Screenshot%20from%202024-02-23%2010-57-59.png)
+![Landing Page](https://github.com/ayushraanjan/tonguecare/blob/082896215be61debd7bcb86de7f5575fdc751ca7/Screenshot%20from%202024-02-23%2011-23-06.png)
 
 
 ## **Overview**
