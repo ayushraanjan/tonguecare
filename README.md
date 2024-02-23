@@ -51,12 +51,17 @@ If you wish to run the project locally:
 Navigate to the project directory:  
 bash
 
-      cd tongue-health-predictor
+      cd tonguecare
 
-1. Open the index.html file in your web browser.
-2. Allow camera access when prompted.
-3. Capture an image of your tongue.
-4. The model will process the image locally and display the predicted health status.
+ - Open the index.html file in your web browser.
+ - Allow camera access when prompted.
+ - Capture an image of your tongue.
+ - The model will process the image locally and display the predicted health status.
+## Test Dataset
+Model has been tested on this dataset producing 82% accurate result
+![Model has been tested on this dataset producing 82% accurate result](https://github.com/ayushraanjan/tonguecare/blob/8846c196a0c03ce88b91281efd89ffa678316d33/Screenshot%20from%202024-02-23%2012-14-05.png)
+ - [Healthy Test Samples](https://drive.google.com/drive/folders/122FqAQG8BNkEcaCB-IdZxFiTAroG5JoV?usp=drive_link)
+ - [Unhealthy Test Image Samples](https://drive.google.com/drive/folders/17JsPipGk8XeRR-2_ZiUFj3i2Zpt8cf74?usp=sharing)
 
 ## **Authors**
 
@@ -64,6 +69,7 @@ bash
  - [Anshu Malini](https://github.com/anshumalinii)
  - [Sivam Kumar](https://github.com/codysivam)
  - [Ayush Ranjan](https://github.com/ayushraanjan)
+
 
 ## **License**
 
